@@ -32,7 +32,6 @@
 				float3 worldPos : TEXCOORD1;
 				fixed3 vlight : TEXCOORD2; // ambient/SH/vertexlights
 				half3 worldNormal : TEXCOORD3;
-				float4 proj : TEXCOORD4;
 			};
 
 			float4 _MainTex_ST;
@@ -63,12 +62,6 @@
 					o.vlight = 0.0;
 				#endif
 
-#ifdef SHADOW_ON
-					o.proj = mul(_ShadowMatrix, float4(worldPos, 1.0));
-					//if (shadowSpacePos.z > depth)
-					//	atten = 0;
-#endif
-
 				return o;
 			}
 
@@ -98,7 +91,6 @@
 						shadowCol = 0;
 					else
 						shadowCol = tex2Dproj(_TransparentTexture, UNITY_PROJ_COORD(shadowSpacePos));
-					//float4 shadowSpacePos = IN.proj;
 #endif
 
 
